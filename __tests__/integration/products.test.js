@@ -114,6 +114,34 @@ describe('Product Service', function() {
     
   })
 
+  describe("PUT /products/:id: Update a product by ID", () => {
+    test("When product is updated by its _id we should get the following: 200 code, valid object of the created product and a valid _id", async () => {
+      
+      //Arrange
+      
+      const product = Builder.product()
+      const newProduct = await createProduct(product)
+
+      //Act
+
+      const response = await request(app)
+        .put("/products/"+newProduct._id)
+        .send(product)
+        .set("Accept", "application/json")
+
+        //Assert
+
+        .expect("Content-Type", /json/)
+        .expect(200)
+    
+      const { _id, ...productStored } = response.body
+      
+      expect(productStored).toEqual(product)
+      expect(_id).toBeTruthy()
+    })
+    
+  })
+
   describe("DELETE /products/:key/:value: Delete a product", () => {
     test("When product is deleted we should get the following: 200 code, valid object of the created product and a valid _id", async () => {
       

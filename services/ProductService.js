@@ -28,6 +28,16 @@ async function updateProduct(product, reqBody) {
 }
 
 /**
+ * Update product by ID
+ */
+ async function updateProductById(id, reqBody) {
+    let updatedProduct = await Product.findById(id)
+    updatedProduct = Object.assign(updatedProduct, reqBody)
+    updatedProduct = await updatedProduct.save()
+    return updatedProduct
+}
+
+/**
  * Remove product
  */
 async function deleteProduct(product) {
@@ -50,6 +60,7 @@ module.exports = {
     showAllProducts,
     createProduct,
     updateProduct,
+    updateProductById,
     deleteProduct,
     findProducts
 }
