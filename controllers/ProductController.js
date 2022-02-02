@@ -1,4 +1,4 @@
-const { showAllProducts, createProduct, updateProduct, updateProductById, deleteProduct, findProducts } = require("../services/ProductService")
+const { showAllProducts, createProduct, getProductById, updateProduct, updateProductById, deleteProduct, findProducts } = require("../services/ProductService")
 const { setError } = require('./ErrorController')
 
 /**
@@ -32,6 +32,26 @@ async function apiShowAllProducts(req, res) {
 
   } catch (error) {
       return setError(res, 500, error)
+  }
+}
+
+/**
+ * Search product by ID
+ */
+ async function apiGetProductById(req, res){
+
+  try {
+    
+    const product = await getProductById(req.params.id)
+    
+    if(!product){
+      return setError(res, 404)
+    }
+
+    return res.status(200).json({product})
+
+  } catch (error) {
+    return setError(res, 500, error)
   }
 }
 
@@ -139,6 +159,7 @@ async function apiFindProducts(req, res, next) {
 module.exports = {
   apiShowAllProducts,
   apiCreateProduct,
+  apiGetProductById,
   apiShowProduct,
   apiUpdateProduct,
   apiUpdateProductById,

@@ -18,6 +18,15 @@ async function createProduct(product) {
 }
 
 /**
+ * Get product by ID
+ */
+ async function getProductById(id) {
+    let product = await Product.findById(id)
+    return product
+}
+
+
+/**
  * Update product
  */
 async function updateProduct(product, reqBody) {
@@ -59,6 +68,7 @@ async function findProducts(key, value) {
 module.exports = {
     showAllProducts,
     createProduct,
+    getProductById,
     updateProduct,
     updateProductById,
     deleteProduct,
