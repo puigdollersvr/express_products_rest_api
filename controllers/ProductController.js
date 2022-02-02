@@ -1,4 +1,13 @@
-const { showAllProducts, createProduct, getProductById, updateProduct, updateProductById, deleteProduct, findProducts } = require("../services/ProductService")
+const { 
+  showAllProducts, 
+  createProduct, 
+  getProductById, 
+  updateProduct, 
+  updateProductById, 
+  deleteProduct, 
+  deleteProductById,
+  findProducts 
+} = require("../services/ProductService")
 const { setError } = require('./ErrorController')
 
 /**
@@ -136,6 +145,27 @@ async function apiShowAllProducts(req, res) {
 }
 
 /**
+ * Delete product by ID
+ */
+ async function apiDeleteProductById(req, res) {
+  try {
+
+    const product = await deleteProductById(req.params.id)
+
+    if (!product) {
+      return setError(res, 404)
+    } 
+
+    const { _id, sku, name, description, price, category, stock } = product
+    
+    //return res.status(200).json({_id, sku, name, description, price, category, stock})
+      
+  } catch (error) {
+      return setError(res, 500, error)
+  }
+}
+
+/**
  * Find product
  */
 async function apiFindProducts(req, res, next) {
@@ -164,5 +194,6 @@ module.exports = {
   apiUpdateProduct,
   apiUpdateProductById,
   apiDeleteProduct,
+  apiDeleteProductById,
   apiFindProducts
 }

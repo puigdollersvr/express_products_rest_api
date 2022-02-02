@@ -56,6 +56,17 @@ async function deleteProduct(product) {
 }
 
 /**
+ * Remove product by ID
+ */
+ async function deleteProductById(id) {
+    let product = await Product.findById(id)
+    if (product) {
+        product = await product.remove()
+    }
+    return product
+}
+
+/**
  * Find products by key and value
  */
 async function findProducts(key, value) {
@@ -72,5 +83,6 @@ module.exports = {
     updateProduct,
     updateProductById,
     deleteProduct,
+    deleteProductById,
     findProducts
 }
