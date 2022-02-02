@@ -66,6 +66,30 @@ describe('Product Service', function() {
     })
   })
 
+  describe("GET /products/:id: Find a product by ID", () => {
+    test("When a product is found we should get a 200 code and the object of the product", async () => {
+      
+      //Arrange
+      
+      const product = Builder.product()
+      const createdProduct = await createProduct(product)
+    
+
+      //Act
+
+      const response = await request(app)
+        .get("/products/"+createdProduct._id)
+        //Assert
+        .expect("Content-Type", /json/)
+        .expect(200)
+      
+      const { _id } = response.body.product
+      expect(response.body.product).toBeDefined();
+      expect(_id).toBeTruthy()
+        
+    })
+  })
+
   describe("GET /products/:key/:value: Find a product", () => {
     test("When products are found we should get a 200 code and the object of the product", async () => {
       
