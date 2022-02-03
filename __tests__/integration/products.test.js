@@ -83,8 +83,8 @@ describe('Product Service', function() {
         .expect("Content-Type", /json/)
         .expect(200)
       
-      const { _id } = response.body.product
-      expect(response.body.product).toBeDefined();
+      const { _id, ...recievedProduct} = response.body
+      expect(recievedProduct).toBeDefined();
       expect(_id).toBeTruthy()
         
     })

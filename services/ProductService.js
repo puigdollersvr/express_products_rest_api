@@ -40,10 +40,12 @@ async function updateProduct(product, reqBody) {
  * Update product by ID
  */
  async function updateProductById(id, reqBody) {
-    let updatedProduct = await Product.findById(id)
-    updatedProduct = Object.assign(updatedProduct, reqBody)
-    updatedProduct = await updatedProduct.save()
-    return updatedProduct
+    let product = await Product.findById(id)
+    if (product) {
+        product = Object.assign(product, reqBody)
+        product = await product.save()
+    }
+    return product
 }
 
 /**

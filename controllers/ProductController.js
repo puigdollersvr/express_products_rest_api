@@ -57,7 +57,8 @@ async function apiShowAllProducts(req, res) {
       return setError(res, 404)
     }
 
-    return res.status(200).json({product})
+    const { _id, sku, name, description, price, category, stock } = product
+    return res.status(200).json({_id, sku, name, description, price, category, stock})
 
   } catch (error) {
     return setError(res, 500, error)
@@ -112,6 +113,11 @@ async function apiShowAllProducts(req, res) {
   try {
 
     const product = await updateProductById(req.params.id, req.body)
+
+    if(!product) {
+      return setError(res, 404)
+    }
+
     const { _id, sku, name, description, price, category, stock } = product
     return res.status(200).json({_id, sku, name, description, price, category, stock})
       
@@ -157,8 +163,7 @@ async function apiShowAllProducts(req, res) {
     } 
 
     const { _id, sku, name, description, price, category, stock } = product
-    
-    //return res.status(200).json({_id, sku, name, description, price, category, stock})
+    return res.status(200).json({_id, sku, name, description, price, category, stock})
       
   } catch (error) {
       return setError(res, 500, error)
