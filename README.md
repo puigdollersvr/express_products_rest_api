@@ -1,4 +1,4 @@
-# FLAT101 - REST API
+# PRODUCTS - REST API
 
 Ésta es una REST API desarrollada sobre el framework **Express**, 
 connectada a una base de datos **MongoDB** con la ayuda del ODM **Mongoose**. 
@@ -22,10 +22,14 @@ basados en el patrón **AAA (Arrange, Act, Assert)**.
 
 ## Iniciar la aplicación - Docker requerido
 
+Es necesario todo el contenedor de Docker con la base de datos y la SPA en React.
+
     docker-compose build
     docker-compose up
 
 ## Ejecutar los tests
+
+En el directorio /api.
 
     npm run test -- --watch
 
@@ -87,7 +91,29 @@ Documentación de la REST API.
 
     {"_id":"61eff9e4f50705d6c5421812","sku":"0003","name":"Product 3","description":"Lorem ipsum dolor sit amet","price":10,"category":"Home Office","stock":10}
 
-## Obtener producto concreto (En éste caso por SKU)
+## Obtener producto por ID
+
+### Request
+
+`GET products/:id`
+
+    curl -i -H --location --request GET 'http://localhost:9000/products/61f985f3a6e1389370e379bd'
+
+### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 157
+    ETag: W/"9d-YTX/G9c913aRHw4PANQGhc/pkbs"
+    Date: Tue, 08 Feb 2022 16:17:39 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {"_id":"61f985f3a6e1389370e379bd","sku":"0001","name":"Product 1M","description":"Lorem ipsum dolor sit amet","price":10,"category":"Home Office","stock":10} 
+
+## Obtener producto mediante clave/valor (en éste caso por SKU)
 
 ### Request
 
@@ -109,7 +135,38 @@ Documentación de la REST API.
 
     {"products":[{"_id":"61ec1cc75887f9585f2e7185","sku":"0001","name":"Product 1","description":"Lorem ipsum dolor sit amet","price":10,"category":"Home Office","stock":10,"date":"2022-01-22T15:03:03.441Z","__v":0}]}
 
-## Modificar un producto
+## Modificar un producto por ID
+
+### Request
+
+`PUT products/:id`
+
+    curl -i -H --location --request PUT 'http://localhost:9000/products/61f985f3a6e1389370e379bd' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "sku": "0001",
+        "name": "Product 1Mo",
+        "description": "Lorem ipsum dolor sit amet",
+        "price": 10,
+        "category": "Home Office",
+        "stock": 10
+    }'
+
+### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 158
+    ETag: W/"9e-T9Qj/B4ZMo2cSl9yD2dCXwSDHaA"
+    Date: Tue, 08 Feb 2022 16:19:53 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {"_id":"61f985f3a6e1389370e379bd","sku":"0001","name":"Product 1Mo","description":"Lorem ipsum dolor sit amet","price":10,"category":"Home Office","stock":10}
+
+## Modificar un producto mediante clave/valor (en éste caso por SKU)
 
 ### Request
 
@@ -140,7 +197,29 @@ Documentación de la REST API.
 
     {"_id":"61ec1cc75887f9585f2e7185","sku":"0001","name":"Product 1M","description":"Lorem ipsum dolor sit amet","price":10,"category":"Home Office","stock":10}
 
-## Eliminar un producto
+## Eliminar un producto por ID
+
+### Request
+
+`DELETE products/:id`
+    
+    curl -i -H --location --request DELETE 'http://localhost:9000/products/62029878c05d39244226587d'
+
+### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 156
+    ETag: W/"9c-r1UPuQVpOUBJpFaCJw+sLwER/KQ"
+    Date: Tue, 08 Feb 2022 16:22:19 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {"_id":"62029878c05d39244226587d","sku":"0003","name":"Product 3","description":"Lorem ipsum dolor sit amet","price":10,"category":"Home Office","stock":10}
+
+## Eliminar un producto mediante clave/valor (en éste caso por SKU)
 
 ### Request
 
